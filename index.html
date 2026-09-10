@@ -97,20 +97,31 @@
       status.innerText = "Triggering update...";
 
       fetch(WEB_APP_URL)
-        .then(() => {
-          status.style.color = '#34c759';
-          status.innerText = "✅ Calendar updated!";
-        })
-        .catch(() => {
-          status.style.color = '#34c759';
-          status.innerText = "✅ Sync signal sent!";
-        })
-        .finally(() => {
-          setTimeout(() => {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-          }, 2000);
-        });
+      .then(response => response.text())
+      .then(data => {
+        const status = document.getElementById('status');
+        if (data.startsWith("SUCCESS:")) {
+          status.style.color = '#34c759'; // Green
+          status.innerText = "✅ " + data.replace("SUCCESS:", "").trim();
+        } else if (data.startsWith("INFO:")) {
+          status.style.color = '#ff9500'; // Orange/Yellow
+          status.innerText = "⚠️ " + data.replace("INFO:", "").trim();
+        } else {
+          status.style.color = '#ff3b30'; // Red
+          status.innerText = "❌ " + data.replace("ERROR:", "").trim();
+        }
+      })
+      .catch(() => {
+        const status = document.getElementById('status');
+        status.style.color = '#ff3b30';
+        status.innerText = "❌ Network connection error.";
+      })
+      .finally(() => {
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+        }, 2000);
+      });
     }
   </script>
 </body>
