@@ -1,127 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Calendar Update</title>
-
-  <!-- Web App Metadata for Mobile Home Screen -->
-  <meta name="apple-mobile-web-app-title" content="Calendar Update">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Roster Sync</title>
+  
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="mobile-web-app-capable" content="yes">
-
-  <!-- Dynamic SVG App Icon (Calendar + Update Arrow) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23007AFF'><rect width='512' height='512' rx='100' fill='%23007AFF'/><path d='M160 120v-30h40v30h112v-30h40v30h40c22 0 40 18 40 40v240c0 22-18 40-40 40H120c-22 0-40-18-40-40V160c0-22 18-40 40-40h40zm-40 120v160h272V240H120zm136 20c35.3 0 64 28.7 64 64h-30l45 45 45-45h-30c0-53-43-96-94-96s-94 43-94 96h30c0-35.3 28.7-64 64-64z' fill='white'/></svg>">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23007AFF'><rect width='512' height='512' rx='100' fill='%23007AFF'/><path d='M160 120v-30h40v30h112v-30h40v30h40c22 0 40 18 40 40v240c0 22-18 40-40 40H120c-22 0-40-18-40-40V160c0-22 18-40 40-40h40zm-40 120v160h272V240H120zm136 20c35.3 0 64 28.7 64 64h-30l45 45 45-45h-30c0-53-43-96-94-96s-94 43-94 96h30c0-35.3 28.7-64 64-64z' fill='white'/></svg>">
+  <meta name="theme-color" content="#007aff">
 
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+    html, body {
+      height: 100%;
+      width: 100%;
       margin: 0;
-      background-color: #f2f2f7;
-      -webkit-user-select: none;
+      padding: 0;
+      background: #f2f2f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .card {
-      background: #ffffff;
-      padding: 32px 24px;
+      background: white;
+      padding: 30px 20px;
       border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
       text-align: center;
-      width: 80%;
-      max-width: 300px;
-    }
-    .icon-container {
-      margin-bottom: 16px;
+      width: 85%;
+      max-width: 340px;
+      box-sizing: border-box;
     }
     h2 {
-      margin: 0 0 20px 0;
-      font-size: 20px;
+      margin-top: 0;
       color: #1c1c1e;
+      font-size: 22px;
+    }
+    p {
+      color: #8e8e93;
+      font-size: 14px;
+      margin-bottom: 25px;
     }
     button {
-      background-color: #007aff;
+      background: #007aff;
       color: white;
       border: none;
-      padding: 16px 20px;
+      padding: 16px;
       font-size: 17px;
       font-weight: 600;
-      border-radius: 12px;
-      width: 100%;
+      border-radius: 14px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
-      transition: transform 0.1s ease, background-color 0.2s ease;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0,122,255,0.3);
+      transition: opacity 0.2s;
     }
     button:active {
-      transform: scale(0.97);
-      background-color: #0056b3;
+      opacity: 0.7;
     }
     #status {
-      margin-top: 18px;
-      font-size: 14px;
-      color: #8e8e93;
-      min-height: 20px;
+      margin-top: 22px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #3c3c43;
+      min-height: 44px;
+      word-break: break-word;
     }
   </style>
 </head>
 <body>
-
   <div class="card">
-    <div class="icon-container">
-      <svg width="64" height="64" viewBox="0 0 512 512" fill="#007AFF">
-        <rect width="512" height="512" rx="100"/>
-        <path d="M160 120v-30h40v30h112v-30h40v30h40c22 0 40 18 40 40v240c0 22-18 40-40 40H120c-22 0-40-18-40-40V160c0-22 18-40 40-40h40zm-40 120v160h272V240H120zm136 20c35.3 0 64 28.7 64 64h-30l45 45 45-45h-30c0-53-43-96-94-96s-94 43-94 96h30c0-35.3 28.7-64 64-64z" fill="white"/>
-      </svg>
-    </div>
-    <h2>Calendar & Update</h2>
-    <button id="syncBtn" onclick="runSync()">Sync Calendar</button>
-    <div id="status">Tap to sync Google Calendar</div>
+    <h2>Roster Sync</h2>
+    <p>Tap below to trigger an immediate calendar sync check.</p>
+    <button id="syncBtn" onclick="triggerSync()">Sync Now</button>
+    <div id="status">Ready</div>
   </div>
 
   <script>
-    // Paste your Google Apps Script Web App Deployment URL here
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzLN8Q_Ia4A9MrjxXT5Bmi0f8rqZIU2pZCpYJNvldk3YirGYy60PMZNtfV60dgfl_WOmg/exec";
+    const urlParams = new URLSearchParams(window.location.search);
+    const webapp_url = urlParams.get('webapp_url');
 
-    function runSync() {
+    function triggerSync() {
       const btn = document.getElementById('syncBtn');
       const status = document.getElementById('status');
 
-      btn.disabled = true;
-      btn.style.opacity = '0.6';
-      status.style.color = '#007aff';
-      status.innerText = "Triggering update...";
-
-      fetch(WEB_APP_URL)
-      .then(response => response.text())
-      .then(data => {
-        const status = document.getElementById('status');
-        if (data.startsWith("SUCCESS:")) {
-          status.style.color = '#34c759'; // Green
-          status.innerText = "✅ " + data.replace("SUCCESS:", "").trim();
-        } else if (data.startsWith("INFO:")) {
-          status.style.color = '#ff9500'; // Orange/Yellow
-          status.innerText = "⚠️ " + data.replace("INFO:", "").trim();
-        } else {
-          status.style.color = '#ff3b30'; // Red
-          status.innerText = "❌ " + data.replace("ERROR:", "").trim();
-        }
-      })
-      .catch(() => {
-        const status = document.getElementById('status');
+      if (!webapp_url) {
         status.style.color = '#ff3b30';
-        status.innerText = "❌ Network connection error.";
-      })
-      .finally(() => {
-        setTimeout(() => {
-          btn.disabled = false;
-          btn.style.opacity = '1';
-        }, 2000);
-      });
+        status.innerText = "❌ No URL inserted, please add your webapp url in the address line.";
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      status.style.color = '#3c3c43';
+      status.innerText = "⏳ Syncing...";
+
+      const targetUrl = webapp_url + (webapp_url.includes('?') ? '&' : '?') + 'run=true';
+
+      fetch(targetUrl)
+        .then(response => response.text())
+        .then(data => {
+          if (data.startsWith("SUCCESS:")) {
+            status.style.color = '#34c759';
+            status.innerText = "✅ " + data.replace("SUCCESS:", "").trim();
+          } else if (data.startsWith("INFO:")) {
+            status.style.color = '#ff9500';
+            status.innerText = "⚠️ " + data.replace("INFO:", "").trim();
+          } else {
+            status.style.color = '#ff3b30';
+            status.innerText = "❌ " + data.replace("ERROR:", "").trim();
+          }
+        })
+        .catch(err => {
+          status.style.color = '#ff3b30';
+          status.innerText = "❌ Connection failed: " + err.message;
+        })
+        .finally(() => {
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+          }, 2000);
+        });
     }
   </script>
 </body>
